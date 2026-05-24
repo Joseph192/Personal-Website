@@ -1,0 +1,13 @@
+---
+import { intro } from "../data/site.js";
+---
+
+<section class="intro">
+  <p class="eyebrow">{intro.eyebrow}</p>
+  <h1>{intro.heading}</h1>
+  <p>{intro.body}</p>
+  <div class="intro-actions">
+    <a class="button" href={intro.primaryAction.href}>{intro.primaryAction.label}</a>
+    <a class="text-link" href={intro.secondaryAction.href}>{intro.secondaryAction.label}</a>
+  </div>
+</section>

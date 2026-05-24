@@ -1,0 +1,41 @@
+---
+import Layout from "../components/Layout.astro";
+import WritingCard from "../components/WritingCard.astro";
+import { navLinks, writingPage } from "../data/site.js";
+import { getWritingPosts } from "../lib/writing.js";
+
+const posts = getWritingPosts();
+const writingNavLinks = navLinks.filter((link) => ["Home", "Writing", "Projects"].includes(link.label));
+const postsByYear = posts.reduce((groups, post) => {
+  const year = String(post.year);
+  groups[year] = groups[year] ?? [];
+  groups[year].push(post);
+  return groups;
+}, {});
+const writingYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
+---
+
+<Layout title={writingPage.title} description={writingPage.description} showChrome={false} fullBleed>
+  <section class="writing-page">
+    <nav class="home-title-nav" aria-label="Writing navigation">
+      {writingNavLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+
+    <div class="writing-top-line" aria-hidden="true"></div>
+
+    <div class="writing-page-content">
+      <h1 class="writing-page-title">{writingPage.title}</h1>
+
+      <div class="writing-year-list">
+        {writingYears.map((year) => (
+          <section class="writing-year-section" aria-labelledby={`writing-${year}`}>
+            <h2 id={`writing-${year}`} class="writing-year-heading">{year}</h2>
+            <div class="writing-list">
+              {postsByYear[year].map((post) => <WritingCard post={post} />)}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,39 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import { navLinks } from "../../data/site.js";
+import { slugFromTitle } from "../../lib/writing.js";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("writing", ({ data }) => data.published !== false);
+  return posts.map((post) => ({
+    params: { slug: slugFromTitle(post.data.title) },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const description = post.data.description || post.data.title;
+const writingNavLinks = navLinks.filter((link) => ["Home", "Writing", "Projects"].includes(link.label));
+---
+
+<Layout title={post.data.title} description={description} showChrome={false} fullBleed>
+  <section class="writing-page">
+    <nav class="home-title-nav" aria-label="Writing navigation">
+      {writingNavLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+
+    <div class="writing-top-line" aria-hidden="true"></div>
+
+    <article class="writing-post">
+      <header class="writing-post-header">
+        <h1>{post.data.title}</h1>
+        <time datetime={post.data.date}>{post.data.date}</time>
+      </header>
+      <div class="writing-post-body">
+        <Content />
+      </div>
+    </article>
+  </section>
+</Layout>

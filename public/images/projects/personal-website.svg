@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Personal website preview">
+  <rect width="1200" height="675" fill="#f7f7f8"/>
+  <rect x="96" y="96" width="1008" height="483" rx="24" fill="#ffffff" stroke="#dedee3" stroke-width="4"/>
+  <rect x="156" y="162" width="240" height="28" rx="14" fill="#3366ff"/>
+  <rect x="156" y="226" width="520" height="36" rx="18" fill="#111111"/>
+  <rect x="156" y="292" width="680" height="20" rx="10" fill="#5f6368"/>
+  <rect x="156" y="332" width="560" height="20" rx="10" fill="#5f6368"/>
+  <rect x="156" y="424" width="232" height="72" rx="12" fill="#3366ff"/>
+  <rect x="744" y="210" width="240" height="240" rx="24" fill="#f7f7f8" stroke="#dedee3" stroke-width="4"/>
+  <text x="864" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="64" font-weight="700" fill="#3366ff">JZ</text>
+</svg>

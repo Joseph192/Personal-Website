@@ -1,0 +1,15 @@
+---
+import TagList from "./TagList.astro";
+
+const { project } = Astro.props;
+---
+
+<article class="card project-card">
+  {project.image && <img src={project.image} alt="" loading="lazy" />}
+  <div>
+    <p class="card-meta">{project.date}</p>
+    <h3><a href={project.href}>{project.title}</a></h3>
+    <p>{project.description}</p>
+    <TagList items={project.tags} label="Tags" />
+  </div>
+</article>

@@ -1,0 +1,13 @@
+---
+const { title, titleId, href, linkLabel } = Astro.props;
+---
+
+<section class="section" aria-labelledby={titleId}>
+  <div class="section-header">
+    <h2 id={titleId}>{title}</h2>
+    {href && linkLabel && <a href={href}>{linkLabel}</a>}
+  </div>
+  <div class="card-grid">
+    <slot />
+  </div>
+</section>

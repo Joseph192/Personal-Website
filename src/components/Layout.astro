@@ -1,0 +1,30 @@
+---
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import SEO from "./SEO.astro";
+import { site } from "../data/site.js";
+import "../styles/global.css";
+
+const {
+  title = site.name,
+  description = site.description,
+  showChrome = true,
+  fullBleed = false
+} = Astro.props;
+
+const mainClass = fullBleed ? "site-main site-main--full" : "site-main";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SEO title={title} description={description} />
+  </head>
+  <body>
+    {showChrome && <Header />}
+    <main class={mainClass}>
+      <slot />
+    </main>
+    {showChrome && <Footer />}
+  </body>
+</html>

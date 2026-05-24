@@ -1,0 +1,12 @@
+---
+import { navLinks, site } from "../data/site.js";
+---
+
+<header class="site-header">
+  <nav class="nav container" aria-label="Primary navigation">
+    <a class="brand" href="/" aria-label={`${site.name} home`}>{site.name}</a>
+    <div class="nav-links">
+      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+    </div>
+  </nav>
+</header>

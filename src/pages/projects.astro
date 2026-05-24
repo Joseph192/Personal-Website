@@ -1,0 +1,18 @@
+---
+import Layout from "../components/Layout.astro";
+import CardGrid from "../components/CardGrid.astro";
+import PageHeading from "../components/PageHeading.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projectsPage } from "../data/site.js";
+import { getProjects } from "../lib/projects.js";
+
+const projects = getProjects();
+---
+
+<Layout title={projectsPage.title} description={projectsPage.description}>
+  <PageHeading title={projectsPage.title} description={projectsPage.description} />
+
+  <CardGrid label="Projects">
+    {projects.map((project) => <ProjectCard project={project} />)}
+  </CardGrid>
+</Layout>

@@ -1,0 +1,132 @@
+---
+import ActivityPanel from "./ActivityPanel.astro";
+import { activitySections, heroIntro } from "../data/home.js";
+import { navLinks, site } from "../data/site.js";
+
+const panels = [
+  activitySections.now,
+  activitySections.recently,
+  activitySections.recentlyRead
+];
+
+const homeNavLinks = navLinks.filter((link) => ["Home", "Writing", "Projects"].includes(link.label));
+---
+
+<section class="home-intro-sequence" data-home-sequence style="--home-progress: 0;">
+  <div class="home-intro-sticky">
+    <section class="title-card-scene" aria-label="Homepage introduction">
+      <nav class="home-title-nav" aria-label="Homepage navigation">
+        {homeNavLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      </nav>
+
+      <div class="yellow-line yellow-line--top" aria-hidden="true"></div>
+      <div class="yellow-line yellow-line--split-top" aria-hidden="true"></div>
+      <div class="yellow-line yellow-line--split-bottom" aria-hidden="true"></div>
+      <div class="yellow-line yellow-line--bottom" aria-hidden="true"></div>
+
+      <h1 class="title-card-name">{heroIntro.name}</h1>
+      <p class="title-card-summary">{heroIntro.summary}</p>
+
+      <div class="home-social-links" aria-label="Social links">
+        <a href={site.instagram} aria-label="Instagram">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.5" cy="6.5" r="1"></circle>
+          </svg>
+        </a>
+        <a href={`mailto:${site.email}`} aria-label="Email">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+            <path d="M4 7l8 6 8-6"></path>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <section class="activity-reveal activity-reveal--current" aria-label="Current activity">
+      <div class="activity-content">
+        <div class="activity-panel-grid">
+          {panels.map((panel) => <ActivityPanel section={panel} />)}
+        </div>
+      </div>
+    </section>
+
+    <section class="artwork-reveal" aria-label="Future artwork placeholder">
+      <div class="artwork-placeholder">Artwork Coming Soon</div>
+    </section>
+  </div>
+</section>
+
+<script>
+  const sequence = document.querySelector("[data-home-sequence]");
+  const nameText = sequence?.querySelector(".title-card-name");
+  const summaryText = sequence?.querySelector(".title-card-summary");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let ticking = false;
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function setProgress() {
+    if (!sequence) return;
+
+    if (reduceMotion.matches) {
+      sequence.style.setProperty("--home-progress", "1");
+      return;
+    }
+
+    const scrollRange = sequence.offsetHeight - window.innerHeight;
+    const progress = scrollRange > 0
+      ? clamp(-sequence.getBoundingClientRect().top / scrollRange, 0, 1)
+      : 0;
+
+    sequence.style.setProperty("--home-progress", progress.toFixed(3));
+    sequence.style.setProperty("--line-y", `${(38 * progress).toFixed(2)}svh`);
+    sequence.style.setProperty("--horizontal-line-opacity", String(clamp(1 - (progress - 0.92) / 0.08, 0, 1)));
+    const splitEndFade = clamp(1 - (progress - 0.92) / 0.08, 0, 1);
+    sequence.style.setProperty("--split-line-opacity", String(splitEndFade));
+    const speedThreshold = (1 / 3) + (5 / (window.innerHeight * 0.3));
+    const slowProgress = clamp((progress - 0.25) / (speedThreshold - 0.25), 0, 1);
+    const fastProgress = clamp((progress - speedThreshold) / (1 - speedThreshold), 0, 1);
+    const splitDistance = Math.min(slowProgress * 1.5 + fastProgress * 36.5, 38);
+    sequence.style.setProperty("--split-left-x", `${(-splitDistance).toFixed(2)}vw`);
+    sequence.style.setProperty("--split-right-x", `${splitDistance.toFixed(2)}vw`);
+
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const lineTravel = viewportHeight * 0.38 * progress;
+    const bottomLineTop = viewportHeight * 0.88 - lineTravel;
+    const topLineBottom = viewportHeight * 0.12 + lineTravel;
+    const leftVerticalX = viewportWidth * 0.5 - viewportWidth * (splitDistance / 100);
+    const rightVerticalX = viewportWidth * 0.5 + viewportWidth * (splitDistance / 100);
+
+    if (nameText) {
+      const nameRect = nameText.getBoundingClientRect();
+      sequence.style.setProperty("--name-clip-right", `${Math.max(0, nameRect.right - leftVerticalX).toFixed(2)}px`);
+      sequence.style.setProperty("--name-clip-bottom", `${Math.max(0, nameRect.bottom - bottomLineTop).toFixed(2)}px`);
+    }
+
+    if (summaryText) {
+      const summaryRect = summaryText.getBoundingClientRect();
+      sequence.style.setProperty("--summary-clip-left", `${Math.max(0, rightVerticalX - summaryRect.left).toFixed(2)}px`);
+      sequence.style.setProperty("--summary-clip-top", `${Math.max(0, topLineBottom - summaryRect.top).toFixed(2)}px`);
+    }
+  }
+
+  function requestProgress() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      setProgress();
+      ticking = false;
+    });
+  }
+
+  setProgress();
+  document.fonts?.ready.then(requestProgress);
+  window.addEventListener("scroll", requestProgress, { passive: true });
+  window.addEventListener("resize", requestProgress);
+  reduceMotion.addEventListener("change", requestProgress);
+</script>
