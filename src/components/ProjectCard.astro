@@ -2,12 +2,13 @@
 import TagList from "./TagList.astro";
 
 const { project } = Astro.props;
+const tagList = JSON.stringify((project.tags ?? []).map((tag) => tag.toLowerCase()));
 ---
 
-<article class="card project-card">
+<article class="card project-card" data-project-card data-tags={tagList}>
   {project.image && <img src={project.image} alt="" loading="lazy" />}
   <div>
-    <p class="card-meta">{project.date}</p>
+    <p class="card-meta">{project.displayDate}</p>
     <h3><a href={project.href}>{project.title}</a></h3>
     <p>{project.description}</p>
     <TagList items={project.tags} label="Tags" />

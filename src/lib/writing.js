@@ -1,25 +1,12 @@
 const postModules = import.meta.glob("../content/writing/*.md", { eager: true });
 
-const monthNames = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."];
+import { formatDisplayDate } from "./dates.js";
 
 function slugFromPath(path) {
   return path.split("/").pop().replace(/\.md$/, "");
 }
 
-function dateParts(dateString) {
-  const [year, month, day] = dateString.split("-").map(Number);
-  return { year, month, day };
-}
-
-export function formatWritingDate(dateString) {
-  const { year, month, day } = dateParts(dateString);
-
-  if (!year || !month || !day) {
-    return dateString;
-  }
-
-  return `${monthNames[month - 1]} ${day}, ${year}`;
-}
+export const formatWritingDate = formatDisplayDate;
 
 export function slugFromTitle(title) {
   return title

@@ -298,7 +298,13 @@ img {
   color: var(--color-yellow);
 }
 
-.writing-page {
+.writing-page .home-title-nav,
+.projects-page .home-title-nav {
+  position: fixed;
+}
+
+.writing-page,
+.projects-page {
   position: relative;
   min-height: 100svh;
   background: var(--color-black);
@@ -307,8 +313,18 @@ img {
   padding: calc(12svh + 2.5rem) 12vw 5rem;
 }
 
-.writing-top-line {
-  position: absolute;
+.projects-page {
+  --projects-rail-width: clamp(4.25rem, 9vw, 7rem);
+  --projects-content-gap: clamp(1.75rem, 4vw, 4rem);
+  --projects-side-label-color: #c7352f;
+  padding-left: calc(12vw + var(--projects-content-gap));
+  padding-right: calc(12vw + var(--projects-content-gap));
+}
+
+.writing-top-line,
+.projects-top-line {
+  position: fixed;
+  z-index: 9;
   top: 12svh;
   left: 50vw;
   right: 12vw;
@@ -316,11 +332,22 @@ img {
   background: var(--color-blue);
 }
 
-.writing-page-content {
+.projects-top-line {
+  background: var(--projects-side-label-color);
+}
+
+.writing-page-content,
+.projects-page-content {
   width: min(100%, var(--max-width));
 }
 
-.writing-page-title {
+.projects-page-content {
+  max-width: 58rem;
+  margin-inline: auto;
+}
+
+.writing-page-title,
+.projects-page-title {
   margin: 0 0 0.6rem;
   color: var(--color-off-white);
   font-family: "Source Sans 3", Aptos, Calibri, Arial, sans-serif;
@@ -331,12 +358,136 @@ img {
   text-transform: lowercase;
 }
 
-.writing-page-description {
+.writing-page-description,
+.projects-page-description {
   margin: 0 0 var(--space-8);
   color: rgba(244, 240, 223, 0.68);
   font-family: "Source Sans 3", Aptos, Calibri, Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.5;
+}
+
+.projects-page-description {
+  margin-bottom: var(--space-6);
+}
+
+.project-filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.project-filter-tab {
+  min-height: 2rem;
+  border: var(--line-thin) solid var(--projects-side-label-color);
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-off-white);
+  cursor: pointer;
+  font: 800 0.75rem/1 Aptos, Calibri, Arial, sans-serif;
+  letter-spacing: 0;
+  padding: 0 var(--space-3);
+  text-transform: uppercase;
+}
+
+.project-filter-tab:hover,
+.project-filter-tab.is-active {
+  background: var(--projects-side-label-color);
+  color: var(--color-black);
+}
+
+.projects-page .card {
+  background: #ffffff;
+  color: var(--text);
+  padding: var(--space-3);
+}
+
+.projects-page .card h3 a {
+  color: var(--text);
+}
+
+.projects-page .card-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.projects-page .project-card img {
+  margin: calc(var(--space-3) * -1) calc(var(--space-3) * -1) var(--space-3);
+  max-width: calc(100% + var(--space-3) * 2);
+}
+
+.projects-page .project-card h3 {
+  margin-bottom: var(--space-2);
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.projects-page .project-card p {
+  margin-block: var(--space-2);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.projects-page .tag-list {
+  margin-top: var(--space-3);
+}
+
+.projects-page .tag-list li {
+  font-size: 0.75rem;
+}
+
+.projects-page-title,
+.projects-page-side-label {
+  position: fixed;
+  z-index: 3;
+  top: 50svh;
+  margin: 0;
+  color: var(--projects-side-label-color);
+  font-family: "Classic Quality", var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.projects-page-title {
+  left: calc(12vw + 0.5em);
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.projects-page-side-label--right {
+  right: calc(12vw + 0.5em);
+  transform: translate(50%, -50%) rotate(90deg);
+}
+
+@media (max-width: 900px) {
+  .projects-page {
+    --projects-rail-width: 3.5rem;
+    --projects-content-gap: 1rem;
+  }
+
+  .projects-page .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .projects-page-title,
+  .projects-page-side-label {
+    font-size: clamp(2rem, 7vw, 3.5rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .projects-page {
+    --projects-rail-width: 2.75rem;
+    --projects-content-gap: 0.75rem;
+  }
+
+  .projects-page .card-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .writing-list {

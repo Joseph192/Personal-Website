@@ -1,18 +1,62 @@
 ---
 import Layout from "../components/Layout.astro";
 import CardGrid from "../components/CardGrid.astro";
-import PageHeading from "../components/PageHeading.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import { projectsPage } from "../data/site.js";
+import { navLinks, projectsPage } from "../data/site.js";
 import { getProjects } from "../lib/projects.js";
 
 const projects = getProjects();
+const projectsNavLinks = navLinks.filter((link) => ["Home", "Writing", "Projects"].includes(link.label));
+const projectTags = [...new Set(projects.flatMap((project) => project.tags ?? []))].sort((a, b) => a.localeCompare(b));
 ---
 
-<Layout title={projectsPage.title} description={projectsPage.description}>
-  <PageHeading title={projectsPage.title} description={projectsPage.description} />
+<Layout title={projectsPage.title} description={projectsPage.description} showChrome={false} fullBleed>
+  <section class="projects-page" aria-labelledby="projects-page-title">
+    <nav class="home-title-nav" aria-label="Projects navigation">
+      {projectsNavLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
 
-  <CardGrid label="Projects">
-    {projects.map((project) => <ProjectCard project={project} />)}
-  </CardGrid>
+    <div class="projects-top-line" aria-hidden="true"></div>
+    <h1 id="projects-page-title" class="projects-page-title">{projectsPage.title} +</h1>
+    <div class="projects-page-side-label projects-page-side-label--right" aria-hidden="true">Portfolio</div>
+
+    <div class="projects-page-content">
+      <p class="projects-page-description">{projectsPage.description}</p>
+
+      <div class="project-filter-tabs" aria-label="Filter projects by tag">
+        <button class="project-filter-tab is-active" type="button" data-project-filter="all" aria-pressed="true">All</button>
+        {projectTags.map((tag) => (
+          <button class="project-filter-tab" type="button" data-project-filter={tag.toLowerCase()} aria-pressed="false">
+            {tag}
+          </button>
+        ))}
+      </div>
+
+      <CardGrid label="Projects">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </CardGrid>
+    </div>
+  </section>
 </Layout>
+
+<script>
+  const filterTabs = document.querySelectorAll("[data-project-filter]");
+  const projectCards = document.querySelectorAll("[data-project-card]");
+
+  filterTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const selectedTag = tab.getAttribute("data-project-filter");
+
+      filterTabs.forEach((button) => {
+        const isSelected = button === tab;
+        button.classList.toggle("is-active", isSelected);
+        button.setAttribute("aria-pressed", String(isSelected));
+      });
+
+      projectCards.forEach((card) => {
+        const tags = JSON.parse(card.getAttribute("data-tags") ?? "[]");
+        card.hidden = selectedTag !== "all" && !tags.includes(selectedTag);
+      });
+    });
+  });
+</script>
