@@ -48,6 +48,23 @@ Before finishing layout changes, consider:
 - Is text too wide or too small?
 - Are buttons easy to tap?
 
+## Writing detail pages
+
+Writing posts should keep the current detail-page treatment:
+
+- Black full-bleed page background using the same navigation style as the
+  writing index.
+- Icon-only back arrow above the title; it should have an accessible label and
+  link back to `/writing`.
+- Title and date remain outside the body panel on the black background.
+- Date is bold, fully off-white, nudged slightly right from the title edge, and
+  formatted like `May 21, 2026`.
+- The vertical gap from title to date matches the gap from date to the white
+  body panel.
+- Body content sits inside a white rounded rectangle, with dark text and
+  readable spacing. Preserve intentional formatting from Word-derived posts
+  using Markdown or inline HTML rather than overriding it globally.
+
 ## Homepage intro sequence
 
 The homepage begins with a scroll-controlled title-card sequence.

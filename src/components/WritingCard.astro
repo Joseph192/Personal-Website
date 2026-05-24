@@ -4,5 +4,5 @@ const { post } = Astro.props;
 
 <article class="writing-entry">
   <h2><a href={post.href}>{post.title}</a></h2>
-  <time datetime={post.date}>{post.date}</time>
+  <time datetime={post.date}>{post.displayDate}</time>
 </article>

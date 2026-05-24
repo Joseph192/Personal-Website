@@ -27,7 +27,7 @@ export const intro = {
 
 export const writingPage = {
   title: "Writing",
-  description: "Short notes about what I am learning, building, and thinking through."
+  description: "ideas run the world. here are some of mine."
 };
 
 export const projectsPage = {

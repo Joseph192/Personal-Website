@@ -45,6 +45,13 @@ This should stay mostly static and frontend-only unless the task explicitly requ
 - Each writing post should have `title`, `date`, `description`, and content.
 - Keep writing post filenames lowercase and hyphenated, like `my-first-post.md`.
 - Do not change old writing post URLs unless explicitly asked.
+- Keep all writing posts visually consistent with the current writing detail page:
+  black page background, top-right writing navigation, an icon-only back arrow
+  above the title, title and bold off-white formatted date on the black
+  background, and the post body inside a white rounded content panel.
+- Display writing dates as `Month Day, Year` with abbreviated month names when
+  applicable, such as `May 21, 2026`; keep source frontmatter dates as
+  `YYYY-MM-DD`.
 
 ## Project Portfolio Rules
 

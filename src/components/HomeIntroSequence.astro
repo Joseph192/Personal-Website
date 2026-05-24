@@ -25,7 +25,7 @@ const homeNavLinks = navLinks.filter((link) => ["Home", "Writing", "Projects"].i
       <div class="yellow-line yellow-line--bottom" aria-hidden="true"></div>
 
       <h1 class="title-card-name">{heroIntro.name}</h1>
-      <p class="title-card-summary">{heroIntro.summary}</p>
+      <p class="title-card-summary" set:html={heroIntro.summary}></p>
 
       <div class="home-social-links" aria-label="Social links">
         <a href={site.instagram} aria-label="Instagram">

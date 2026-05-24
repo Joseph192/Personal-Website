@@ -13,6 +13,20 @@ good: my-first-post.md
 bad: My First Post.md
 ```
 
+When a Word document is provided for the same post, keep it alongside the
+Markdown file using the same basename:
+
+```text
+my-first-post.md
+my-first-post.docx
+```
+
+Use the Word document as the formatting reference. Preserve visible styling in
+the Markdown-rendered post by using Markdown plus inline HTML where needed
+(for example bold, italics, underlines, lists, links, spacing, or other
+intentional formatting). The Markdown file remains the source rendered by Astro;
+the `.docx` is the reference/original document.
+
 Each writing post should include frontmatter:
 
 ```md
@@ -25,6 +39,24 @@ published: true
 
 Write the writing post here.
 ```
+
+### Current Writing Post Format
+
+All writing posts should keep the same presentation used by the current code:
+
+- The writing detail page uses a black background with the existing top-right
+  writing navigation.
+- A small icon-only back arrow sits above the post title and links to
+  `/writing`.
+- The title and date stay on the black background, above the body panel.
+- The date is bold, fully off-white, and displayed as `Month Day, Year`, such as
+  `May 21, 2026`; frontmatter should still store dates as `YYYY-MM-DD`.
+- The spacing between title and date should match the spacing between date and
+  the white body panel.
+- The post body renders in a white rounded rectangle with dark readable text and
+  normal accent-colored links.
+- Do not duplicate the title inside the Markdown body unless the content
+  intentionally needs a second heading.
 
 ## Project Writeups
 

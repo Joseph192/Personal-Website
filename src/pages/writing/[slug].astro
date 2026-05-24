@@ -2,7 +2,7 @@
 import { getCollection, render } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import { navLinks } from "../../data/site.js";
-import { slugFromTitle } from "../../lib/writing.js";
+import { formatWritingDate, slugFromTitle } from "../../lib/writing.js";
 
 export async function getStaticPaths() {
   const posts = await getCollection("writing", ({ data }) => data.published !== false);
@@ -15,6 +15,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 const description = post.data.description || post.data.title;
+const displayDate = formatWritingDate(post.data.date);
 const writingNavLinks = navLinks.filter((link) => ["Home", "Writing", "Projects"].includes(link.label));
 ---
 
@@ -28,8 +29,13 @@ const writingNavLinks = navLinks.filter((link) => ["Home", "Writing", "Projects"
 
     <article class="writing-post">
       <header class="writing-post-header">
+        <a class="writing-post-back" href="/writing" aria-label="Back to writing">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="m15 18-6-6 6-6"></path>
+          </svg>
+        </a>
         <h1>{post.data.title}</h1>
-        <time datetime={post.data.date}>{post.data.date}</time>
+        <time datetime={post.data.date}>{displayDate}</time>
       </header>
       <div class="writing-post-body">
         <Content />
