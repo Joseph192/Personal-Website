@@ -32,5 +32,5 @@ export const writingPage = {
 
 export const projectsPage = {
   title: "Projects",
-  description: "A small portfolio of projects, experiments, and work in progress."
+  description: "A collection of my brainchildren. (unfinished)"
 };

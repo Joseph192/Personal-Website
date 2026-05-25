@@ -1,13 +1,13 @@
 export const heroIntro = {
   name: "Joseph Zhou.",
-  summary: "Wassup! Welcome to a slice of Joseph's mind. I love people, neuroscience, and robots, and have done some related <a href=\"/projects\"><u>research/projects</u></a> in these fields. Exciting thing are happening, look out in the near future...\n\nI'm here to have fun doing <b><em>great</em></b> work"
+  summary: "Hey! Welcome to a slice of Joseph's mind. I love people, neuroscience, and robots, and have done some related <a href=\"/projects\"><u>research/projects</u></a> in these fields. Exciting thing are happening, look out in the near future...\n\nI'm here to have fun doing <b><em>great</em></b> work"
 };
 
 export const activitySections = {
   now: {
     title: "Now",
     items: [
-      "Decoding neural signals controlling the human hand in China. Building robots, filming, watching turtles..."
+      "Decoding neural signals controlling the human hand in China. Building robots, filming, and watching turtles..."
     ]
   },
   recently: {
