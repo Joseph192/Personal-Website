@@ -13,7 +13,7 @@ export const activitySections = {
   recently: {
     title: "Recently",
     items: [
-      "I'm finishing up my frosh year at Caltech working on implantable neural interfaces through brain vasculature. (ft. rats)",
+      "I'm finishing up my frosh year at Caltech working on implantable neural interfaces through brain vasculature.",
       "I spent fall term building a line tracking car with analog circuits, winter term building a CPU in Abel, and spring term coding a pinball machine in Assembly!",
       ""
     ]
